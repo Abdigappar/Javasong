@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.PlayerController"
+      spacing="15">
+
+    <padding>
+        <Insets top="15" right="15" bottom="15" left="15"/>
+    </padding>
+
+    <Label fx:id="nowPlayingLabel" text="🎵 Сейчас играет: -"
+           style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="⏮" onAction="#playPrevious" />
+        <Button text="⏪ -10 сек" onAction="#rewind10" />
+        <Button text="⏯ Воспроизвести" onAction="#togglePlay" />
+        <Button text="⏩ +10 сек" onAction="#forward10" />
+        <Button text="⏭" onAction="#playNext" />
+        <Button text="⏹ Стоп" onAction="#stopPlayback" />
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Label fx:id="timeLabel" text="00:00 / 00:00" />
+        <Slider fx:id="progressSlider" min="0" max="100" value="0" prefWidth="300" />
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="🔊 Громкость:" />
+        <Slider fx:id="volumeSlider" min="0" max="1" value="0.5" prefWidth="200" />
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="➕ Добавить песню" onAction="#addSongManually" />
+    </HBox>
+
+</VBox>

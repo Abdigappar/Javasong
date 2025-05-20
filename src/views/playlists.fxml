@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.PlaylistsController"
+      spacing="20">
+
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <Label text="📚 Мои плейлисты" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <ListView fx:id="playlistList" prefHeight="250"/>
+
+    <HBox spacing="10">
+        <TextField fx:id="newPlaylistField" promptText="Новый плейлист..."/>
+        <Button text="➕ Добавить" onAction="#addPlaylist"/>
+    </HBox>
+
+    <HBox spacing="10">
+        <Button text="⬅️ Назад" onAction="#goToHome"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="🗑 Удалить выбранный" onAction="#deleteSelected"/>
+    </HBox>
+</VBox>

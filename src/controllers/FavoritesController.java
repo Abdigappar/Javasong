@@ -3,14 +3,13 @@ package controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.StackPane;
-
-import utils.AudioPlayer;
+import utils.PlaybackHelper;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,34 +19,36 @@ public class FavoritesController {
     @FXML
     private ListView<String> favoritesList;
 
-    private ObservableList<String> favoriteSongs = FXCollections.observableArrayList();
+    private final ObservableList<String> favoriteSongs = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
-        // Автоматически загружаем все .mp3 из папки songs/
-        File folder = new File("songs/");
-        if (folder.exists() && folder.isDirectory()) {
-            File[] files = folder.listFiles((dir, name) -> name.toLowerCase().endsWith(".mp3"));
-            if (files != null) {
-                for (File file : files) {
-                    favoriteSongs.add(file.getName());
-                }
-            }
-        }
-
+        loadSongsFromFolder();
         favoritesList.setItems(favoriteSongs);
 
-        // Кастомные ячейки с кнопкой удаления
         favoritesList.setCellFactory(list -> new ListCell<>() {
             private final HBox content = new HBox();
             private final Label songLabel = new Label();
-            private final Button deleteButton = new Button("❌");
+            private final MenuButton menuButton = new MenuButton("⋮");
 
             {
-                deleteButton.setOnAction(event -> favoriteSongs.remove(getItem()));
+                // 🔹 Добавить в плейлист
+                MenuItem addToPlaylist = new MenuItem("Добавить в плейлист");
+                addToPlaylist.setOnAction(e -> {
+                    PlaybackHelper.showPlaylistChoiceDialog(getItem(), "songs");
+                });
+
+                // 🔸 Удалить из любимых
+                MenuItem removeItem = new MenuItem("Удалить из любимых");
+                removeItem.setOnAction(e -> {
+                    favoriteSongs.remove(getItem());
+                });
+
+                menuButton.getItems().addAll(addToPlaylist, removeItem);
+
                 content.setSpacing(10);
                 HBox.setHgrow(songLabel, Priority.ALWAYS);
-                content.getChildren().addAll(songLabel, deleteButton);
+                content.getChildren().addAll(songLabel, menuButton);
             }
 
             @Override
@@ -63,14 +64,19 @@ public class FavoritesController {
             }
         });
 
-        // Воспроизведение при клике
-        favoritesList.setOnMouseClicked(event -> {
-            String selected = favoritesList.getSelectionModel().getSelectedItem();
-            if (selected != null) {
-                File file = new File("songs/" + selected);
-                AudioPlayer.play(file);
+        PlaybackHelper.attachPlaybackHandler(favoritesList);
+    }
+
+    private void loadSongsFromFolder() {
+        File folder = new File("songs/");
+        if (folder.exists() && folder.isDirectory()) {
+            File[] files = folder.listFiles((dir, name) -> name.toLowerCase().endsWith(".mp3"));
+            if (files != null) {
+                for (File file : files) {
+                    favoriteSongs.add(file.getName());
+                }
             }
-        });
+        }
     }
 
     @FXML

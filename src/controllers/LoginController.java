@@ -2,10 +2,13 @@ package controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.StackPane;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
+
+import java.io.IOException;
 
 
 public class LoginController {
@@ -13,6 +16,18 @@ public class LoginController {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Label statusLabel;
+    @FXML
+    private void goToRegister() {
+        try {
+            Parent registerView = FXMLLoader.load(getClass().getResource("/views/register.fxml"));
+            StackPane root = (StackPane) usernameField.getScene().lookup("#contentPane");
+            if (root != null) {
+                root.getChildren().setAll(registerView);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     public void handleLogin() {

@@ -6,7 +6,6 @@ import java.net.Socket;
 import java.sql.*;
 
 public class SongServer {
-
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(8888)) {
             System.out.println("🎧 Сервер запущен на порту 8888. Ожидание клиента...");

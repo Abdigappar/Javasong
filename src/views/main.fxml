@@ -6,16 +6,17 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.MainController">
+            fx:controller="controllers.MainController"
+            prefWidth="800" prefHeight="800">  <!-- немного ниже -->
 
     <!-- 🔍 Поиск -->
     <top>
-        <VBox spacing="10">
+        <VBox spacing="8">
             <children>
                 <TextField fx:id="searchField" promptText="Поиск песен..."/>
             </children>
             <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
+                <Insets top="10" right="10" bottom="8" left="10"/>
             </padding>
         </VBox>
     </top>
@@ -27,7 +28,7 @@
 
     <!-- 🔻 Навигация + Плеер -->
     <bottom>
-        <VBox spacing="10">
+        <VBox spacing="8">
             <children>
                 <HBox alignment="CENTER" spacing="10">
                     <children>
@@ -37,11 +38,14 @@
                         <Button text="📚 Мои плейлисты" onAction="#goToPlaylists"/>
                     </children>
                     <padding>
-                        <Insets top="10" right="10" bottom="10" left="10"/>
+                        <Insets top="8" right="10" bottom="8" left="10"/>
                     </padding>
                 </HBox>
                 <fx:include source="player.fxml"/>
             </children>
+            <padding>
+                <Insets bottom="10"/>
+            </padding>
         </VBox>
     </bottom>
 

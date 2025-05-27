@@ -7,7 +7,8 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="controllers.FavoritesController"
-      spacing="20">
+      spacing="20"
+      prefHeight="500" maxHeight="600">
 
     <padding>
         <Insets top="10" right="10" bottom="10" left="10"/>
@@ -18,10 +19,11 @@
         <Label text="Любимые песни" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
     </HBox>
 
-    <ListView fx:id="favoritesList" prefHeight="400"/>
+    <ListView fx:id="favoritesList" prefHeight="300" maxHeight="350"/>
 
-    <HBox spacing="10">
+    <HBox spacing="10" alignment="CENTER_RIGHT">
         <Button text="🔁 Очистить всё" onAction="#clearFavorites"/>
         <Button text="⬅ Назад" onAction="#goToHome"/>
     </HBox>
+
 </VBox>
